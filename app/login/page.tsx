@@ -18,12 +18,9 @@ function Login() {
   } = useForm();
   const onSubmit = async (data) => {
     setIfTrySignIn(true);
-    const submitBtn = document.getElementById("submitButton");
-    submitBtn.disabled = true;
-    submitBtn.classList.add("disabled");
     console.log(data);
     try {
-      const user = await signInUser(data.email, data.password);
+      const user: any = await signInUser(data.email, data.password);
       console.log(user.uid);
       console.log("Sign In Successfully");
     } catch (error) {
@@ -32,8 +29,6 @@ function Login() {
     } finally {
       reset();
       setIfTrySignIn(false);
-      submitBtn.disabled = false;
-      submitBtn.classList.remove("disabled");
       router.push("/");
     }
   };
@@ -114,6 +109,7 @@ function Login() {
                 type="submit"
                 className="w-[100%] bg-[#c73939] text-[#fff] py-2 font-bold rounded"
                 id="submitButton"
+                disabled={ifTrySignIn}
               >
                 {ifTrySignIn ? "Signing In..." : "Sign In"}
               </button>

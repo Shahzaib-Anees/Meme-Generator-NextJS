@@ -13,7 +13,7 @@ import "./signup.css";
 
 function SignUp() {
   const router = useRouter();
-  const [userProfileImage, setUserProfileImage] = useState();
+  const [userProfileImage, setUserProfileImage] = useState(null);
   const [ifTrySignUp, setIfTrySignUp] = useState(false);
   const handleImageControl = (evt) => {
     setUserProfileImage(evt.target.files[0]);
@@ -28,13 +28,10 @@ function SignUp() {
   } = useForm();
   const onSubmit = async (data) => {
     setIfTrySignUp(true);
-    const submitBtn = document.getElementById("submitButton");
-    submitBtn.disabled = true;
-    submitBtn.classList.add("disabled");
     console.log(data);
     console.log(userProfileImage);
     try {
-      const newUser = await signUpUser(data.email, data.password);
+      const newUser: any = await signUpUser(data.email, data.password);
       const snapshot = await uploadImage(
         "profileImages",
         userProfileImage,
@@ -45,8 +42,8 @@ function SignUp() {
         `${userProfileImage.name}`
       );
 
-      const userInDb = await addDatainDb("users", newUser.uid, {
-        userId: newUser.uid,
+      const userInDb = await addDatainDb("users", newUser?.uid, {
+        userId: newUser?.uid,
         name: data.fullName,
         email: data.email,
         profileImage: imageUrl,
@@ -59,8 +56,6 @@ function SignUp() {
     } finally {
       reset();
       setIfTrySignUp(false);
-      submitBtn.disabled = false;
-      submitBtn.classList.remove("disabled");
     }
   };
   return (
@@ -183,6 +178,7 @@ function SignUp() {
               type="submit"
               className="w-[100%] bg-[#C73939] text-[#fff] py-2 font-bold rounded"
               id="submitButton"
+              disabled={ifTrySignUp}
             >
               {ifTrySignUp ? "Signing Up..." : "Sign Up"}
             </button>
