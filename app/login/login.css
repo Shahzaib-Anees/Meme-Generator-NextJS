@@ -1,0 +1,22 @@
+.error-text {
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+@media(min-width : 200px)and (max-width : 640px) {
+    .form-container{
+        width: 100%;
+        padding: 25px 18px;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .main-heading{
+        font-size: 30px;
+    }
+
+    .text{
+        font-size: 12px;
+    }
+}

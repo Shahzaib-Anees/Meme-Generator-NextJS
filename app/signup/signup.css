@@ -1,0 +1,45 @@
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.inputField:hover {
+    border: 1px solid #C73939;
+}
+
+.inputField:focus {
+    border: 1px solid #C73939;
+}
+
+.error-text {
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.disabled {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media(min-width : 200px)and (max-width : 640px) {
+    .form-container{
+        width: 100%;
+        padding: 25px 18px;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .main-heading{
+        font-size: 30px;
+    }
+
+    .text{
+        font-size: 12px;
+    }
+}
