@@ -12,7 +12,6 @@ interface MemeCreatorFormProps {
 function MemeCreatorForm(props: MemeCreatorFormProps) {
   const router = useRouter();
   const [inputBoxArray, setInputBoxArray] = useState([]);
-  const [apiCallText, setApiCallText] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   useEffect(() => {
     for (let i = 1; i <= props.templateInputBox; i++) {
@@ -58,7 +57,7 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     } catch (error) {
       console.log(error);
     } finally {
-      // router.push(`${apiResponse}`);
+      router.push(`${apiResponse}`);
       console.log(apiResponse);
     }
   };
