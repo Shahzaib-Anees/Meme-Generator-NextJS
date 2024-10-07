@@ -23,7 +23,11 @@ async function Home() {
         </p>
       </div>
       <article className="flex gap-10 items-center justify-center flex-wrap py-8 px-2">
-        {templates.map((template, index) => {
+        {templates.map((template: {
+          url: string,
+          id: string,
+          box_count : number,
+        }, index: number) => {
           return (
             <div
               className="w-[350px] h-[fit-content] flex flex-col gap-6 py-4 px-3 border-[1px] rounded border-[#c7c7c7]"
@@ -46,7 +50,7 @@ async function Home() {
                     query: {
                       templateId: template?.id,
                       templateUrl: template?.url,
-                      templateInputBox : template?.box_count,
+                      templateInputBox: template?.box_count,
                     },
                   }}
                 >

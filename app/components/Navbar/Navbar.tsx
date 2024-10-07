@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ProfileNav from "../Profile-Nav/ProfileNav";
 function Navbar() {
   return (

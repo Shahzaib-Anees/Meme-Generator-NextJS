@@ -1,22 +1,25 @@
-import { storage, db, auth } from "./firebaseConfig";
+import {
+  storage,
+  db,
+  auth
+} from "./firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   doc,
   setDoc,
   getDoc,
-  updateDoc,
   getDocs,
   collection,
   deleteDoc,
 } from "firebase/firestore";
 // Sign Up User
-const signUpUser = (email, password) => {
+const signUpUser = (email: string, password: string) => {
   return new Promise((resolve, reject) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -30,7 +33,7 @@ const signUpUser = (email, password) => {
 };
 
 // Sign In User
-const signInUser = (email, password) => {
+const signInUser = (email: string, password: string) => {
   return new Promise((resolve, reject) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -44,7 +47,7 @@ const signInUser = (email, password) => {
 };
 
 // Upload Image
-const uploadImage = (collectionName, image, imageName) => {
+const uploadImage = (collectionName: string, image: any, imageName: string) => {
   return new Promise((resolve, reject) => {
     const storageRef = ref(storage, `${collectionName}/${imageName}`);
     uploadBytes(storageRef, image)
@@ -95,7 +98,7 @@ const signOutUser = () => {
 };
 
 // Get Single Data
-const getSingleData = (collectionName, id) => {
+const getSingleData = (collectionName: string, id: string) => {
   return new Promise((resolve, reject) => {
     getDoc(doc(db, collectionName, id))
       .then((doc) => {
@@ -125,11 +128,11 @@ const getAllDocuments = (collectionName) => {
 };
 
 // Delete Document
-const deleteDocument = (collectionName, id) => {
+const deleteDocument = (collectionName: string, id: string) => {
   return new Promise((resolve, reject) => {
     deleteDoc(doc(db, collectionName, id))
       .then(() => {
-        resolve("Document Deleted Successfully", id);
+        resolve(`Document Deleted Successfully ${id}`);
       })
       .catch((error) => {
         reject(error.message);
