@@ -42,7 +42,7 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     }
     console.log(array);
     text.splice(text.length - 1, 1);
-    const x = text.join("");
+    let x = text.join("");
     console.log(x);
 
     try {
