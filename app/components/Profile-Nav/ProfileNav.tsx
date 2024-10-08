@@ -8,6 +8,7 @@ import {
 } from "../../configs/firebase/firebaseMethods";
 import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
+import "./ProfileNav.css";
 
 function ProfileNav() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -73,10 +74,12 @@ function ProfileNav() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <div className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </div>
+                <Link href={`/Profile/${currentUserId}`}>
+                  <div className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </div>
+                </Link>
               </li>
               <li>
                 <div>Settings</div>
@@ -98,7 +101,7 @@ function ProfileNav() {
           </div>
         ) : (
           <Link href="/login">
-            <button className="py-2 px-5 rounded font-sans text-[#fff] font-semibold bg-[#4B4B4B] hover:transition-all hover:bg-[rgba(0,0,0,0)] hover:border-2 hover:text-[#4b4b4b] hover:border-[#4b4b4b]">
+            <button className="login-btn lg:py-2 lg:px-5 rounded font-sans text-[#fff] font-semibold bg-[#4B4B4B] hover:transition-all hover:bg-[rgba(0,0,0,0)] hover:border-2 hover:text-[#4b4b4b] hover:border-[#4b4b4b]">
               Login
             </button>
           </Link>

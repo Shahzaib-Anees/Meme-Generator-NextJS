@@ -1,0 +1,5 @@
+@media(min-width : 200px)and (max-width : 400px) {
+    .input-containers{
+        width: 298px;
+    }
+}

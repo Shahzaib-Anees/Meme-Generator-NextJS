@@ -1,0 +1,9 @@
+@media(min-width : 200px)and (max-width : 640px){
+    .navbar{
+        padding: 5px 8px;
+    }
+    .txt{
+        font-size: 24px;
+        font-weight: 800;
+    }
+}

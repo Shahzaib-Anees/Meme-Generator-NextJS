@@ -1,18 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import "./page.css";
 async function Home() {
   const memeTemplates = await fetch("https://api.imgflip.com/get_memes");
   const response = await memeTemplates.json();
   const templates = await response.data.memes;
   return (
     <>
-      <div className="w-[100%] flex flex-col items-center justify-center gap-1 py-4 px-3 mt-2 bg-[#efefef]">
-        <h1 className="text-center text-4xl font-extrabold">
+      <div className="txt-cont w-[100%] flex flex-col items-center justify-center gap-1 py-4 px-3 mt-2 bg-[#efefef]">
+        <h1 className="head-txt text-center text-4xl font-extrabold">
           <span className="text-[#C73939] underline">Generate</span>
           <span className="text-[#4B4B4B] ml-2 underline">Memes</span>
         </h1>
-        <p className="text-center text-[14px] w-[70%] text-[#777777] font-semibold">
+        <p className="para-txt text-center text-[14px] w-[70%] text-[#777777] font-semibold">
           Unleash your creativity with our Meme Generator! Create hilarious,
           relatable, and trending memes in seconds. With an intuitive interface,
           you can easily upload images, add witty captions, customize fonts, &

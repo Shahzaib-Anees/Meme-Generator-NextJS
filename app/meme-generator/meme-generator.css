@@ -1,0 +1,13 @@
+@media(min-width : 200px)and (max-width : 640px) {
+    .head-txt {
+        font-size: 30px;
+    }
+
+    .para-txt {
+        width: 100%;
+    }
+
+    .meme-template-image {
+        width: 360px;
+    }
+}

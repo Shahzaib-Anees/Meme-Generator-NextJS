@@ -51,7 +51,9 @@ function SignUp() {
         memesGallery: [],
       });
       console.log(newUser.uid, snapshot, imageUrl, userInDb);
-      //   navigate("/");
+      setTimeout(()=>{
+        router.push("/");
+      } , 200);
     } catch (error) {
       console.log(error);
     } finally {
@@ -139,7 +141,7 @@ function SignUp() {
               <input
                 type="password"
                 name="passwordConfirm"
-                placeholder="enter a strong password"
+                placeholder="confirm your password"
                 className="inputField"
                 {...register("passwordConfirm", {
                   required: true,
@@ -177,7 +179,7 @@ function SignUp() {
             </div>
             <button
               type="submit"
-              className="w-[100%] bg-[#C73939] text-[#fff] py-2 font-bold rounded"
+              className="w-[100%] bg-[#C73939] text-[#fff] py-2 font-bold rounded disabled:opacity-50"
               id="submitButton"
               disabled={ifTrySignUp}
             >

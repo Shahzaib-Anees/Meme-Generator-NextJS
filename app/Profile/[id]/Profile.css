@@ -1,0 +1,11 @@
+@media (min-width : 200px) and (max-width:500px){
+    .user-info-cont{
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .name-txt{
+        font-size: 20px;
+    }
+}

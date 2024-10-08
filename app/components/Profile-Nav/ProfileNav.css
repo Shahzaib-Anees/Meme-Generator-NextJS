@@ -1,0 +1,6 @@
+@media(min-width : 200px) and (max-width : 640px){
+    .login-btn{
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+}

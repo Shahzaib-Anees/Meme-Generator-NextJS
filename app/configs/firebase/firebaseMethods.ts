@@ -17,6 +17,7 @@ import {
   getDocs,
   collection,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 // Sign Up User
 const signUpUser = (email: string, password: string) => {
@@ -139,6 +140,21 @@ const deleteDocument = (collectionName: string, id: string) => {
       });
   });
 };
+
+// Update Document 
+const updateDocument = (collectionName: string, id: string, obj) => {
+  return new Promise((resolve, reject) => {
+    const docRef = doc(db, collectionName, id);
+    updateDoc(docRef, obj)
+      .then(() => {
+        resolve("Document Updated Successfully" + " " + id);
+      })
+      .catch((error) => {
+        reject(error.message);
+      });
+  });
+};
+
 export {
   signUpUser,
   signInUser,
@@ -149,4 +165,5 @@ export {
   getSingleData,
   getAllDocuments,
   deleteDocument,
+  updateDocument,
 };

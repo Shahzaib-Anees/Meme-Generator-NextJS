@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { auth } from "@/app/configs/firebase/firebaseConfig";
+import { getSingleData, updateDocument } from "@/app/configs/firebase/firebaseMethods";
+import "./MemeCreatorForm.css";
 
 interface MemeCreatorFormProps {
   templateId: string;
@@ -11,15 +14,18 @@ interface MemeCreatorFormProps {
 }
 function MemeCreatorForm(props: MemeCreatorFormProps) {
   const router = useRouter();
+  const [ifTryCreateMeme, setIfTryCreateMeme] = useState(false);
   const [inputBoxArray, setInputBoxArray] = useState([]);
   const [apiResponse, setApiResponse] = useState("");
+  // Setting Default Values to prevent data crash
   useEffect(() => {
+    // Configring Number of Inputs for Specific Meme 
     for (let i = 1; i <= props.templateInputBox; i++) {
       inputBoxArray.push(i);
     }
     setInputBoxArray([...inputBoxArray]);
-    console.log(inputBoxArray);
   }, []);
+  // Hook Form 
   const {
     register,
     handleSubmit,
@@ -28,7 +34,10 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     reset,
   } = useForm();
 
+  // Submit Form 
   const onSubmit = async (data) => {
+    const currentUserId = auth?.currentUser?.uid;
+    setIfTryCreateMeme(true);
     // Logic for making dynamic text api call
     const text = [];
     console.log(data);
@@ -43,7 +52,6 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     text.splice(text.length - 1, 1);
     let x = text.join("");
     console.log(x);
-
     try {
       const apiResponse = await fetch(
         `https://api.imgflip.com/caption_image?template_id=${props.templateId}&username=MohammadShahzaib&password=shah123456789&${x}`,
@@ -51,19 +59,28 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
           method: "POST",
         }
       );
-      const response = await apiResponse.json();
-      setApiResponse(response.data?.url);
-      console.log(response);
+      const response: any = await apiResponse.json();
+      const memeUrl = response.data.url;
+      setApiResponse(memeUrl);
+      const currentUserData: any = await getSingleData("users", currentUserId);
+      const { memesGallery } = currentUserData;
+      let array: string[] = [...memesGallery, memeUrl];
+      console.log(array);
+      const userDocUpdate = await updateDocument("users", currentUserId, {
+        memesGallery: [...array],
+      });
+      console.log(userDocUpdate);
     } catch (error) {
       console.log(error);
     } finally {
+      setIfTryCreateMeme(false);
+      reset();
       router.push(`${apiResponse}`);
-      console.log(apiResponse);
     }
   };
   return (
     <>
-      <article className="lg:w-[fit-content] h-[fit-content]">
+      <article className="form-container flex items-center justify-center sm:w-[90%] lg:w-[fit-content] h-[fit-content]">
         <form
           className="w-[fit-content] flex flex-col items-center justify-center rounded gap-4 py-7 px-6 mt-2 bg-[#fbfbfb]"
           style={{
@@ -74,7 +91,7 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
           {inputBoxArray?.length > 0 &&
             inputBoxArray.map((boxcount) => {
               return (
-                <div className="w-[500px] flex flex-col gap-[2px] mt-1">
+                <div className="input-containers lg:w-[500px] sm:w-[470px] flex flex-col gap-[2px] mt-1">
                   <label
                     className="text-[16px] text-[#272727] font-semibold"
                     htmlFor="email"
@@ -99,9 +116,10 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
             })}
           <button
             type="submit"
-            className="w-[100%] bg-[#c73939] text-[#fff] py-2 font-bold rounded"
+            className="w-[100%] bg-[#c73939] text-[#fff] py-2 font-bold rounded disabled:opacity-50"
+            disabled={ifTryCreateMeme}
           >
-            Create Meme
+            {ifTryCreateMeme ? "Creating Meme..." : "Create Meme"}
           </button>
         </form>
       </article>

@@ -1,4 +1,5 @@
 import ProfileNav from "../Profile-Nav/ProfileNav";
+import "./Navbar.css";
 function Navbar() {
   return (
     <div
@@ -8,7 +9,7 @@ function Navbar() {
       }}
     >
       <div className="flex-1">
-        <div className="flex items-center justify-center gap-[7px] text-3xl font-sans">
+        <div className="txt flex items-center justify-center gap-[7px] lg:text-3xl sm:text-2xl font-sans">
           <span className="text-[#c73939] font-extrabold">Meme</span>
           <span className="text-[#4b4b4b] font-extrabold">Generator</span>
         </div>

@@ -82,7 +82,7 @@ function Login() {
                 <input
                   type="password"
                   name="password"
-                  placeholder="enter you password"
+                  placeholder="enter your password"
                   className="py-2 px-2 outline-none focus:border-[1px] focus:border-[#c73939] hover:border-[1px] hover:border-[#c73939] rounded-md text-[15px]"
                   {...register("password", { required: true })}
                   style={{
@@ -107,7 +107,7 @@ function Login() {
               </div>
               <button
                 type="submit"
-                className="w-[100%] bg-[#c73939] text-[#fff] py-2 font-bold rounded"
+                className="w-[100%] bg-[#c73939] text-[#fff] py-2 font-bold rounded disabled:opacity-50"
                 id="submitButton"
                 disabled={ifTrySignIn}
               >
