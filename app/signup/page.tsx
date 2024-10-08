@@ -47,6 +47,7 @@ function SignUp() {
         name: data.fullName,
         email: data.email,
         profileImage: imageUrl,
+        joinDate: new Date().toDateString(),
         memesGallery: [],
       });
       console.log(newUser.uid, snapshot, imageUrl, userInDb);
