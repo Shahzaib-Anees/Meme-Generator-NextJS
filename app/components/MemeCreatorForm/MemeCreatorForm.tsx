@@ -40,17 +40,16 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     setIfTryCreateMeme(true);
     // Logic for making dynamic text api call
     const text = [];
-    console.log(data);
     let array = [];
     let i = 0;
     for (let values in data) {
       array.push(data[values]);
-      text.push(`text${i}`, "=", array[i], "&");
+      text.push(`boxes[${i}][text]`, "=", array[i], "&");
       i++;
     }
     console.log(array);
     text.splice(text.length - 1, 1);
-    let x = text.join("");
+    const x = text.join("");
     console.log(x);
     try {
       const apiResponse = await fetch(
