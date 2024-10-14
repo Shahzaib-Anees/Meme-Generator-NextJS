@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import "./page.css";
 async function Home() {
-  const memeTemplates = await fetch("https://api.imgflip.com/get_memes");
+  const memeTemplates = await fetch("https://api.imgflip.com/get_memes" , {
+    cache : "no-store",
+  });
   const response = await memeTemplates.json();
   const templates = await response.data.memes;
   return (
