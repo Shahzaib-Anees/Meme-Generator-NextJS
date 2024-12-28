@@ -70,12 +70,12 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
         memesGallery: [...array],
       });
       console.log(userDocUpdate);
+      router.push(memeUrl);
     } catch (error) {
       console.log(error);
     } finally {
       setIfTryCreateMeme(false);
       reset();
-      router.push(`${apiResponse}`);
     }
   };
   return (
