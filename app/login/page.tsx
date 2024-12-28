@@ -5,6 +5,7 @@ import { signInUser } from "../configs/firebase/firebaseMethods";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./login.css";
+import MessageModal from "../components/MessageModal/MessageModal";
 
 function Login() {
   const router = useRouter();
@@ -117,6 +118,7 @@ function Login() {
           </div>
         </article>
       </article>
+      <MessageModal text="login" state="login" />
     </>
   );
 }
