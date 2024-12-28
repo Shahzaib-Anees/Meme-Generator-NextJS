@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { auth } from "@/app/configs/firebase/firebaseConfig";
-import { getSingleData, updateDocument } from "@/app/configs/firebase/firebaseMethods";
+import {
+  getSingleData,
+  updateDocument,
+} from "@/app/configs/firebase/firebaseMethods";
 import "./MemeCreatorForm.css";
 
 interface MemeCreatorFormProps {
@@ -17,15 +20,13 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
   const [ifTryCreateMeme, setIfTryCreateMeme] = useState(false);
   const [inputBoxArray, setInputBoxArray] = useState([]);
   const [apiResponse, setApiResponse] = useState("");
-  // Setting Default Values to prevent data crash
   useEffect(() => {
-    // Configring Number of Inputs for Specific Meme 
+    // Configring Number of Inputs for Specific Meme
     for (let i = 1; i <= props.templateInputBox; i++) {
       inputBoxArray.push(i);
     }
     setInputBoxArray([...inputBoxArray]);
   }, []);
-  // Hook Form 
   const {
     register,
     handleSubmit,
@@ -34,7 +35,7 @@ function MemeCreatorForm(props: MemeCreatorFormProps) {
     reset,
   } = useForm();
 
-  // Submit Form 
+  // Submit Form
   const onSubmit = async (data) => {
     const currentUserId = auth?.currentUser?.uid;
     setIfTryCreateMeme(true);
