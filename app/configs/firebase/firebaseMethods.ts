@@ -28,7 +28,7 @@ const signUpUser = (email: string, password: string) => {
         resolve(user);
       })
       .catch((error) => {
-        reject(error.message);
+        reject(error);
       });
   });
 };
@@ -42,7 +42,7 @@ const signInUser = (email: string, password: string) => {
         resolve(user);
       })
       .catch((error) => {
-        reject(error.message);
+        reject(error);
       });
   });
 };

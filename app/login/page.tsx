@@ -10,6 +10,8 @@ import MessageModal from "../components/MessageModal/MessageModal";
 function Login() {
   const router = useRouter();
   const [ifTrySignIn, setIfTrySignIn] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [subTextError, setSubTextError] = useState("");
   const {
     register,
     handleSubmit,
@@ -17,20 +19,23 @@ function Login() {
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setIfTrySignIn(true);
     console.log(data);
     try {
       const user: any = await signInUser(data.email, data.password);
       console.log(user.uid);
       console.log("Sign In Successfully");
-    } catch (error) {
+      router.push("/");
+    } catch (error: any) {
       console.log(error);
-      console.log("Sign In Failed");
+      setAuthError("Invalid Credentials");
+      setSubTextError(
+        "This email is whether not registered or password is incorrect"
+      );
     } finally {
       reset();
       setIfTrySignIn(false);
-      router.push("/");
     }
   };
   return (
@@ -118,7 +123,9 @@ function Login() {
           </div>
         </article>
       </article>
-      <MessageModal text="login" state="login" />
+      {authError && (
+        <MessageModal text={authError} subText={subTextError} state="login" />
+      )}
     </>
   );
 }

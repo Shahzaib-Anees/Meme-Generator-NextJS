@@ -10,12 +10,15 @@ import {
   addDatainDb,
 } from "../configs/firebase/firebaseMethods";
 import "./signup.css";
+import MessageModal from "../components/MessageModal/MessageModal";
 
 function SignUp() {
   const router = useRouter();
-  const [userProfileImage, setUserProfileImage] = useState(null);
-  const [ifTrySignUp, setIfTrySignUp] = useState(false);
-  const handleImageControl = (evt) => {
+  const [userProfileImage, setUserProfileImage] = useState<any>(null);
+  const [ifTrySignUp, setIfTrySignUp] = useState<boolean>(false);
+  const [authError, setAuthError] = useState<string>("");
+  const [subTextError, setSubTextError] = useState<string>("");
+  const handleImageControl = (evt: any) => {
     setUserProfileImage(evt.target.files[0]);
   };
   const {
@@ -26,7 +29,7 @@ function SignUp() {
     getValues,
     reset,
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setIfTrySignUp(true);
     console.log(data);
     console.log(userProfileImage);
@@ -51,11 +54,29 @@ function SignUp() {
         memesGallery: [],
       });
       console.log(newUser.uid, snapshot, imageUrl, userInDb);
-      setTimeout(()=>{
+      setTimeout(() => {
         router.push("/");
-      } , 200);
-    } catch (error) {
+      }, 200);
+    } catch (error: any) {
       console.log(error);
+      if (error.code === "auth/email-already-in-use") {
+        setAuthError("Email is already registered");
+        setSubTextError(
+          "This email is already registered. Please use a different email or log in."
+        );
+      } else if (error.code === "auth/weak-password") {
+        setAuthError("Weak Password");
+        setSubTextError(
+          "Please use a stronger password. It should be at least 6 characters long."
+        );
+      } else if (error.code === "auth/invalid-email") {
+        setAuthError("Invalid email format");
+        setSubTextError(
+          "Please enter a valid email address. It should be in the format: example@example.com."
+        );
+      } else {
+        setAuthError(error.code || "Registration failed");
+      }
     } finally {
       reset();
       setIfTrySignUp(false);
@@ -188,6 +209,13 @@ function SignUp() {
           </form>
         </div>
       </article>
+      {authError && (
+        <MessageModal
+          text={authError}
+          subText={subTextError}
+          state="register"
+        />
+      )}
     </>
   );
 }
